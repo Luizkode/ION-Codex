@@ -130,3 +130,6 @@ export const model = {
   ] as readonly (readonly [number, number])[],
   highTicketSlope: 8,
 };
+
+// Margem adicional aplicada exclusivamente ao resumo conservador.
+export const conservativeCplMultiplier = 1.25;

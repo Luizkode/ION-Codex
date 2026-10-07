@@ -547,7 +547,10 @@ footer span:first-child {
   gap: 22px;
 }
 .flow-title {
-  grid-column: 1 / -1;
+  margin: 18px 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
 }
 .flow-step {
   position: relative;
@@ -557,12 +560,13 @@ footer span:first-child {
   min-width: 0;
 }
 .flow-step > span {
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 600;
   color: #8d7ba4;
 }
 .flow-step strong {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   letter-spacing: -0.2px;
 }
 .flow-step svg {
@@ -712,7 +716,7 @@ footer span:first-child {
     gap: 30px;
   }
   .flow-step strong {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 @media (max-width: 1000px) {
@@ -953,7 +957,7 @@ footer span:first-child {
     grid-column: 1/-1;
   }
   .flow-step strong {
-    font-size: 12px;
+    font-size: 14px;
   }
   .media-metrics {
     grid-template-columns: 1fr 1fr;

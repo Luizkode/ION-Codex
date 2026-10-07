@@ -9,6 +9,7 @@ import {
   RotateCcw,
   Sparkles,
 } from "lucide-react";
+import { calculateConservativeProjection } from "@/lib/conservativeProjection";
 import { money, number, range } from "@/lib/formatters";
 import type { ProjectionInput, ProjectionResult } from "@/types/projection";
 export function Disclaimer() {
@@ -92,27 +93,26 @@ export function ProjectionFlow({
   input: ProjectionInput;
   result: ProjectionResult;
 }) {
+  const conservative = calculateConservativeProjection(input, result);
   const items = [
     ["Investimento mensal", money(input.monthlyAdSpend)],
-    ["CPL", money(result.cpl.max)],
-    ["Oportunidades por mês", number(result.leads.min)],
-    ["Clientes potenciais", number(result.customers.min)],
-    ["Faturamento", money(result.revenue.min)],
+    ["CPL", money(conservative.cpl)],
+    ["Oportunidades por mês", number(conservative.opportunities)],
+    ["Clientes potenciais", number(conservative.customers)],
+    ["Faturamento", money(conservative.revenue)],
   ];
   return (
-    <div className="flow">
-      <div className="flow-title flow-step">
-        <span>Projeção conservadora</span>
+    <div className="conservative-projection">
+      <h3 className="flow-title">Projeção conservadora</h3>
+      <div className="flow">
+        {items.map(([label, value], index) => (
+          <div className="flow-step" key={label}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+            {index < items.length - 1 && <ArrowRight size={16} />}
+          </div>
+        ))}
       </div>
-      {items.map(([label, value], index) => (
-        <div className="flow-step" key={label}>
-          <span>
-            {String(index + 1).padStart(2, "0")} / {label}
-          </span>
-          <strong>{value}</strong>
-          {index < items.length - 1 && <ArrowRight size={16} />}
-        </div>
-      ))}
     </div>
   );
 }
