@@ -546,6 +546,9 @@ footer span:first-child {
   padding: 21px 20px;
   gap: 22px;
 }
+.flow-title {
+  grid-column: 1 / -1;
+}
 .flow-step {
   position: relative;
   display: flex;

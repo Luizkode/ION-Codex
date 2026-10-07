@@ -93,14 +93,17 @@ export function ProjectionFlow({
   result: ProjectionResult;
 }) {
   const items = [
-    ["Investimento / mês", money(input.monthlyAdSpend)],
-    ["Alcance / 7 dias", range(result.reach, (n) => number(n))],
-    ["Leads / mês", range(result.leads)],
-    ["Clientes / mês", range(result.customers)],
-    ["Faturamento / mês", range(result.revenue, money)],
+    ["Investimento mensal", money(input.monthlyAdSpend)],
+    ["CPL", money(result.cpl.max)],
+    ["Oportunidades por mês", number(result.leads.min)],
+    ["Clientes potenciais", number(result.customers.min)],
+    ["Faturamento", money(result.revenue.min)],
   ];
   return (
     <div className="flow">
+      <div className="flow-title flow-step">
+        <span>Projeção conservadora</span>
+      </div>
       {items.map(([label, value], index) => (
         <div className="flow-step" key={label}>
           <span>
@@ -180,12 +183,7 @@ export function ProjectionSummary({
           />
         </div>
       </div>
-      <ProjectionFlow input={input} result={result} />
       <div className="media-metrics">
-        <MetricCard
-          label="Investimento mensal"
-          value={money(input.monthlyAdSpend)}
-        />
         <MetricCard
           label="Investimento diário"
           value={money(result.dailySpend)}
@@ -194,6 +192,10 @@ export function ProjectionSummary({
           label="Público potencial"
           value={number(result.potentialAudience)}
           detail="pessoas na audiência estimada"
+        />
+        <MetricCard
+          label="Alcance em 7 dias"
+          value={range(result.reach, (n) => number(n))}
         />
         <MetricCard
           label="Impressões em 7 dias"
@@ -205,6 +207,7 @@ export function ProjectionSummary({
           detail={result.frequencyLabel}
         />
       </div>
+      <ProjectionFlow input={input} result={result} />
       <div className="result-bottom">
         <CapacityIndicator input={input} result={result} />
         <div className="insight">
